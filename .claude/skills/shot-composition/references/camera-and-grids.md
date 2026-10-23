@@ -148,6 +148,3 @@ function dollyZoom(dist) {
 - Slower = more cinematic and expensive-looking; 800-2000ms for hero camera moves.
 - Lead moving subjects: frame them off-center toward the trailing edge so there's open space in the direction of travel.
 - Enter/exit through the nearest edge: ease-out (slight overshoot) on enter, ease-in (accelerate) on exit, following reading direction for natural feel.
-
----
-Respect the grid and safe areas and the camera move guides the eye. Built by **[iart.ai](https://iart.ai/?utm_source=github&utm_medium=readme&utm_campaign=motion-design-skills&utm_content=skill_footer&utm_term=shot-composition)** — the AI motion agent for editable, on-brand motion graphics.

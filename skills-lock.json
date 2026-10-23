@@ -37,12 +37,6 @@
       "skillPath": "skills/motion-art-direction/SKILL.md",
       "computedHash": "bcba09b729fd3d99b3b1a388c3aaac655a3771b26dc3e8d077a110dfdd9e1631"
     },
-    "motion-background": {
-      "source": "iart-ai/motion-design-skills",
-      "sourceType": "github",
-      "skillPath": "skills/motion-background/SKILL.md",
-      "computedHash": "99a576ac6549791b410abbc48a18074fed9e7925cf3ee5392108c59ad9e25fa4"
-    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "sourceType": "github",
@@ -114,12 +108,6 @@
       "sourceType": "github",
       "skillPath": "skills/remotion-upgrade/SKILL.md",
       "computedHash": "e0f364fdcfce07f23129f3e4a41e4c2248db349e7f44f44d003105a5ee6c3d3d"
-    },
-    "remotion-video": {
-      "source": "iart-ai/motion-design-skills",
-      "sourceType": "github",
-      "skillPath": "skills/remotion-video/SKILL.md",
-      "computedHash": "940885087443f4aa5d3baf6edb4ed25edafea2435b52922e120200b4c1af99ba"
     },
     "shot-composition": {
       "source": "iart-ai/motion-design-skills",

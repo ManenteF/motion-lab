@@ -192,7 +192,7 @@ Pacing arc — tension → release (energy is the *derivative* of cut frequency)
 
 ## Deliverable — an edit-timing plan
 
-A good plan is renderer-agnostic and hands off to an NLE or a code timeline (`remotion-video`, `after-effects`):
+A good plan is renderer-agnostic and hands off to an NLE or a code timeline (the official Remotion skills, `after-effects`):
 
 - **Track spec**: BPM, fps, beat-1 offset, drop frame(s), frames_per_beat.
 - **Arc**: the four phases with frame ranges and target average shot length per phase.

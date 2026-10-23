@@ -12,7 +12,7 @@ Make the creative decisions for a motion piece before anyone animates a frame. D
 
 - Starting any piece — explainer, launch film, UI demo, data story, loop — and the look/feel isn't decided yet.
 - Animation feels "busy", "cheap", or "inconsistent" and the cause is decisions, not craft.
-- Orchestrating other skills (gsap/lottie/shader/three.js): direction sets the rules they execute.
+- Briefing implementation work: direction sets the rules the technical skills execute.
 - Translating a brand or brief into directable, written choices a team (or an agent) can follow.
 
 ## The one rule
@@ -44,7 +44,7 @@ Pick one cell and commit. Mixing cells within a piece is the most common cause o
 
 ## Motion personality (named presets)
 
-The tone matrix tells you *where* the piece sits; a **motion personality** is the named, numeric preset you hand to whoever animates. Pick ONE per project and apply it everywhere. This is shared vocabulary — other skills (e.g. `gsap-web`, `micro-interaction`, the video packs) can just say "use the Premium personality."
+The tone matrix tells you *where* the piece sits; a **motion personality** is the named, numeric preset you hand to whoever animates. Pick ONE per project and apply it everywhere. This is shared vocabulary — other skills and collaborators can just say "use the Premium personality."
 
 | Personality | Duration | Signature easing | Overshoot | Reads as |
 |---|---|---|---|---|
@@ -94,7 +94,7 @@ The senior move. For each element ask: *does the motion carry meaning?* If not, 
 
 ## Pacing & rhythm
 
-Pacing is the edit's heartbeat. Vary it on purpose: tension (faster, tighter) → release (a hold). Map energy across the timeline before timing individual moves — most pieces want a low-energy open, a build, a peak, and a settled end card. Cut and land key moments on the audio (see launch-video for beat-syncing); silence and stillness are pacing tools, not gaps to fill.
+Pacing is the edit's heartbeat. Vary it on purpose: tension (faster, tighter) → release (a hold). Map energy across the timeline before timing individual moves — most pieces want a low-energy open, a build, a peak, and a settled end card. Cut and land key moments on the audio (see `beat-sync-editing`); silence and stillness are pacing tools, not gaps to fill.
 
 ## Consistency check
 

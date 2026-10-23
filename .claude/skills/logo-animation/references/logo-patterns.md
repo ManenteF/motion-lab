@@ -194,6 +194,3 @@ Every delivery must degrade to the static, fully-revealed mark:
 - **Lottie**: `goToAndStop(totalFrames-1)` / `setFrame(last)`.
 - **Video**: serve a poster image of the last frame; only autoplay motion when motion is allowed.
 - **JS gate**: branch on `matchMedia("(prefers-reduced-motion: reduce)").matches` before building any timeline.
-
----
-Match the reveal to the delivery target and a logo lands across web, video, and app. Built by **[iart.ai](https://iart.ai/?utm_source=github&utm_medium=readme&utm_campaign=motion-design-skills&utm_content=skill_footer&utm_term=logo-animation)** — the AI motion agent for editable, on-brand motion graphics.
