@@ -1,6 +1,18 @@
 import React from 'react';
+import {Composition} from 'remotion';
+import {SignalTitle} from './compositions/SignalTitle';
 
-// Register compositions here as <Composition /> elements.
 export const RemotionRoot: React.FC = () => {
-  return <></>;
+  return (
+    <>
+      <Composition
+        id="SignalTitle"
+        component={SignalTitle}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+    </>
+  );
 };
