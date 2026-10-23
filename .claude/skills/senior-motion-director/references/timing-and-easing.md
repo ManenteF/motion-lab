@@ -1,6 +1,6 @@
 # Timing and Easing
 
-Timing is decided in **frames**, easing in **intention**. Numbers here are **starting points to be judged by eye in Studio**, not presets. When a number is not tied to a reason in the brief, it is a default — and defaults are what this skill exists to remove.
+Craft reference: timing is best thought of in **frames**, easing in **intention**. Numbers here are **starting points to be judged by eye on real frames/playback**, not presets and not rules. They describe common ranges; a reference, a concept or a brand will often call for something quite different. Consult this when it helps; don't apply it automatically.
 
 ## 1. Choose the frame rate first
 
@@ -9,11 +9,14 @@ Timing is decided in **frames**, easing in **intention**. Numbers here are **sta
 | **24** | Cinema, film-style spots, title sequences, anything that should feel photographic | Slight strobe on fast moves; motion blur matters; holds feel weighty |
 | **25** | PAL/European broadcast and many European deliverables | Close to 24; the same frame-thinking applies |
 | **30** | Web/social, US broadcast graphics, UI-adjacent content | Smoother, more "digital"; the same frame count moves ~25% faster than at 24 |
+| **60** (and others) | Smooth UI-like motion, high-frame-rate delivery, slow-motion source | Very smooth; needs fewer blur tricks, shifts the feel toward interface/gaming; use when delivery or concept calls for it |
+
+A reference's frame rate is a strong hint: match it when matching its behavior.
 
 Rules:
 - Pick fps from the **delivery target**, then write all timing in frames. Do not design in seconds and convert at the end: the same 12-frame move is a different gesture at 24 and 30 fps.
 - If a piece may ship at two frame rates, re-time it; do not just re-label it.
-- Read `fps` from `useVideoConfig()` in code (official rule) when seconds are unavoidable (e.g. audio markers), but keep the *creative* timing sheet in frames.
+- When seconds are unavoidable (e.g. audio markers), derive them from the project's fps in code instead of hard-coding, but keep the *creative* timing sheet in frames. (In Remotion, read `fps` from `useVideoConfig()` — official rule.)
 
 ### Frames ↔ time
 
@@ -81,7 +84,7 @@ All are valid when the concept calls for them.
 
 **Stepped timing ("on twos / threes").** Update the value every N frames (N = 2 at 24 fps gives a 12 fps feel). Good for hand-made, tactile, graphic or stop-motion-like worlds. Do not mix stepped and smooth movement for the *same* layer unless contrast is the idea.
 
-**Posterized movement.** In Remotion, use the official `posterize` option on `interpolate` (see the official `timing.md`), which samples only every Nth frame:
+**Posterized movement.** Sample the motion only every Nth frame. In other tools, quantize the frame number before evaluating the curve (`f = floor(frame / N) * N`). In Remotion, use the official `posterize` option on `interpolate` (see the official `timing.md`):
 
 ```ts
 interpolate(frame, [0, 24], [0, 1], {
@@ -98,7 +101,7 @@ interpolate(frame, [0, 24], [0, 1], {
 
 **Accelerate-only / decelerate-only.** Leaving the frame at speed (no deceleration — it should be gone before it slows). Arriving at speed and braking (no acceleration — it was already moving before we saw it).
 
-**Multi-phase moves.** Per official `timing.md`, pass an easing **array** with `n − 1` entries to `interpolate` with multiple keyframes, so each phase gets its own character:
+**Multi-phase moves.** Give each phase its own character (piecewise curves in any tool). In Remotion, per official `timing.md`, pass an easing **array** with `n − 1` entries to `interpolate` with multiple keyframes, so each phase gets its own character:
 
 ```ts
 interpolate(frame, [0, 6, 22, 28], [0, 0.35, 0.95, 1], {
@@ -115,7 +118,7 @@ interpolate(frame, [0, 6, 22, 28], [0, 0.35, 0.95, 1], {
 
 Ask: **What is the object? What moves it? What does it do on arrival?**
 
-| Intention | Character | Typical Remotion expression (starting shape — tune by eye) |
+| Intention | Character | Starting shape (Remotion `Easing` shown; the shape transfers to any tool — tune by eye) |
 |---|---|---|
 | Carried at constant rate (conveyor, ticker, camera mid-move) | Constant speed | `Easing.linear` |
 | Mechanical slide that brakes at a stop (rail, slider, shutter) | Fast mid-travel, hard brake | `Easing.bezier(0.2, 0.6, 0.4, 1)` → brake gets harder as the first control rises and the second control approaches 1 |
@@ -131,45 +134,45 @@ Ask: **What is the object? What moves it? What does it do on arrival?**
 `Easing.bezier(x1, y1, x2, y2)`:
 - `y1` high relative to `x1` → fast start; `y1 ≈ 0` → slow start.
 - `x2` low / `y2` near 1 → long soft approach; `x2 ≈ 1` with `y2 < 1` → arrives at speed (hard).
-- Control `y` values outside 0–1 produce overshoot or anticipation; that is covered by the justification rule below.
+- Control `y` values outside 0–1 produce overshoot or anticipation (see the spring/overshoot section).
 
 Draw it, then judge the **speed curve**, not the position curve. Position S-curves all look alike; speed curves differ.
 
-### Don't default to
+### Habit warnings (not bans)
 
-- **spring** on titles, logos, or lockups
-- **bounce** on settle
+These are common reflexes that make motion feel generic when used everywhere. Any of them can be exactly right for a specific motion.
+
+- **spring** on titles, logos or lockups by default
+- **bounce** on settle by default
 - **overshoot** on every arrival
-- **easeOutExpo** `(0.16, 1, 0.3, 1)` — the "premium" curve that makes everything feel identical
+- one **easeOutExpo** `(0.16, 1, 0.3, 1)` curve on everything — it makes everything feel identical
 - **Material Design** curves — they encode UI navigation logic
-- the official docs' example curves are API demonstrations, not creative recommendations
+- the curves in framework docs are API demonstrations, not creative recommendations
 
-If you catch yourself reaching for one by reflex, stop and answer: *what object is this, and why would it move this way?*
+If you notice yourself reaching for one by reflex, ask: *what object is this, and why would it move this way?* If the answer is good (or the reference does exactly that), use it.
 
 ### Perceptual scale
 
-For scale animations the official guidance is to set `output: 'perceptual-scale'` so linear interpolation of scale does not look front-loaded. This is an implementation rule (official); it does not change the creative decision of whether to scale at all.
+Linear interpolation of scale looks front-loaded (the perceived size change is faster at small sizes). Interpolate scale perceptually (e.g. exponentially) in any tool; in Remotion the official guidance is `output: 'perceptual-scale'`. This is an implementation detail; it doesn't change the creative decision of whether to scale at all.
 
-## 6. Spring, overshoot and bounce protocol
+## 6. Springs, overshoot and bounce: when they work
 
-Using any of them requires a ledger entry in the brief:
+They are tools like any other. They work when something in the piece has the physics, personality or reference behavior that calls for them.
 
-```
-JUSTIFIED: <spring|overshoot|bounce> on <element> — <world/physical reason> — <amount %, oscillation count, frames>
-```
+Good reasons:
+- The object is physically elastic or hung (rubber, cloth, pendulum, spring-loaded stamp), or the brand world is tactile.
+- The brand voice or the reference is playful, bouncy or irreverent.
+- A weighted object stops abruptly and the stop reads wrong without a small recoil.
+- The reference does it.
 
-Valid reasons look like:
-- The object is physically elastic or hung (rubber, cloth, pendulum, spring-loaded stamp) and the brand world is tactile.
-- The brand's voice is deliberately cartoonish or irreverent, and *this one arrival* is the punchline.
-- A weighted object is dropped/stopped abruptly and the stop reads wrong without a single small recoil.
+Weak reasons: "it feels premium," "it feels alive," "everything else does it," "looks polished."
 
-Invalid reasons: "it feels premium," "it feels alive," "everything else does it," "looks polished."
-
-Limits when allowed:
-- Overshoot amplitude small (a few percent of travel), **one** oscillation, tail within a few frames.
-- Only for the hero or an explicitly designed beat, not for every element.
-- Never on numbers/quantities, serious or financial content, or legal text.
-- A critically damped spring that does not oscillate is just a deceleration shape: label it as that, justify the shape by intention, and don't let it become the global default.
+Tuning notes:
+- Overshoot amplitude, count of oscillations and tail length define the character: a few percent and one oscillation reads as weight; large and many reads as cartoon. Choose deliberately.
+- Concentrate them on the hero or on designed beats; using them on every element flattens hierarchy.
+- Be careful with numbers/quantities, serious or financial content, and legal text, where bounce undermines credibility.
+- A critically damped spring that does not oscillate is just a deceleration shape — judge it as that.
+- A one-line note on why a spring/overshoot is there is enough; no ledger is required.
 
 ## 7. Holds are timing
 
@@ -194,19 +197,19 @@ Motion blur is a **look decision**: choose it once per piece.
 Blur length ≈ `speed (px per frame) × shutter fraction`. At rest it is zero. Therefore:
 
 - Blur should follow the **motion vector**, scale with speed, and vanish when the object stops.
-- Do **not** use blur as a fake depth-of-field or "premium softness." Real depth blur requires an established depth relationship (see camera reference).
-- No automatic ramps ("blur in, blur out") that exist to hide a weak move. Fix the move.
-- Check at 24 fps: fast, un-blurred moves strobe — either add intentional blur or shorten the move so it reads as a cut.
-- Implementation: follow the official `motion-blur.md` (it states the preferred approach and preview requirements); this skill only decides the shutter feel and where blur lives.
+- Blur works when it communicates velocity or genuine depth/shutter feel; as a fake depth-of-field or "premium softness" it is a warning sign. Real depth blur needs an established depth relationship (see camera reference).
+- Be careful with automatic ramps ("blur in, blur out") that exist to hide a weak move — fix the move first.
+- Check at 24 fps: fast, un-blurred moves strobe — add intentional blur, shorten the move so it reads as a cut, or accept the strobe if the look calls for it.
+- Blur can be applied selectively (e.g. only on the fast phases, sharp during measured phases) and tied to measured speed.
+- Implementation depends on the tool. If Remotion is chosen, the official `motion-blur.md` states the preferred approach and preview requirements.
 
-## 9. Checklist for the timing sheet
+## 9. Quick timing review
 
-- [ ] fps chosen from delivery; all timing written in frames.
-- [ ] Every move has phases; holds are written down.
-- [ ] Easing is justified by object/intention; no generic curve used twice by habit.
-- [ ] Constant-speed, stepped, accelerate-only or hard-stop options considered where relevant.
-- [ ] Overlaps come from relationships, not a uniform stagger.
-- [ ] Any spring/overshoot/bounce has a ledger entry with amount and frame count.
-- [ ] Reading holds tested against actual text length.
-- [ ] End hold is longer than comfortable.
-- [ ] Shutter feel decided; blur follows motion vectors only.
+- Is fps matched to delivery (or to the reference)?
+- Do moves have phases, and are the holds placed on purpose?
+- Is easing chosen from the object/intention (or the reference), not a reflex curve?
+- Were constant-speed, stepped, accelerate-only or hard-stop options considered where they fit?
+- Do overlaps come from relationships rather than a uniform stagger?
+- Are reading holds long enough for the real text?
+- Is the end hold generous?
+- Is the shutter feel a decision, and does blur follow motion vectors?

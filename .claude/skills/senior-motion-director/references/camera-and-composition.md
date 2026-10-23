@@ -1,6 +1,6 @@
 # Camera and Composition
 
-Treat the camera as cinematography. A virtual camera should behave like something that could physically exist (or like a deliberately flat graphic world), never like a CSS transform applied to everything.
+Craft reference for camera and composition. Treat the camera as cinematography: a virtual camera can behave like something that could physically exist, or like a deliberately flat graphic world — the difference is whether the move is *intended*. A CSS-style transform applied to everything is a warning sign, not a prohibition. When a reference's camera is the point (handheld, whip, orbit, synthetic zoom), matching it takes precedence over the guidance here.
 
 ## 1. Decide the world first
 
@@ -20,7 +20,7 @@ Scaling a whole flat frame (`scale 1.0 → 1.12`) is not a dolly:
 - there is no perspective change,
 - type and edges simply get larger and softer.
 
-**Avoid** it unless it is an intentional, declared **2D graphic move** (a graphic "punch-in" on a poster-like frame, or type that scales as a layout gesture). If it is used, say so in the brief and do not dress it with blur ramps or depth fakery.
+It is a perfectly good **2D graphic move** when intended (a graphic "punch-in" on a poster-like frame, or type that scales as a layout gesture, or the reference does exactly this). It becomes a warning sign when it is passed off as a camera dolly — especially when dressed with blur ramps or depth fakery. Know which one you're making.
 
 For a real push-in: move a perspective camera along its axis through layers/objects at different depths (parallax emerges automatically), or change focal length deliberately and know that a zoom is *not* a dolly (zoom keeps relative depth, dolly changes it).
 
@@ -40,7 +40,7 @@ hFOV = 2 · atan(sensorWidth / (2 · focalLength))
 vFOV = 2 · atan( tan(hFOV/2) · height/width )
 ```
 
-Three.js (`PerspectiveCamera.fov`) takes the **vertical** FOV. Longer lenses flatten depth and reduce parallax between layers; shorter lenses exaggerate it. Choose from the concept: a wide lens for space and energy, a long lens for intimacy and product beauty. See the official `3d.md` for the Remotion + Three.js implementation.
+Three.js (`PerspectiveCamera.fov`) takes the **vertical** FOV. Longer lenses flatten depth and reduce parallax between layers; shorter lenses exaggerate it. Choose from the concept: a wide lens for space and energy, a long lens for intimacy and product beauty. If Remotion is the chosen tool, see the official `3d.md` for the Remotion + Three.js implementation.
 
 ## 4. Camera move vocabulary
 
@@ -55,11 +55,11 @@ Name the move and what it does. If you cannot, you do not need it.
 | **Zoom** | Focal length changes; no parallax change | A graphic, observational feel; use knowingly |
 | **Crane / jib / arc** | Combined translation with arc | Establishing, grandeur; needs real depth to read |
 | **Orbit** | Camera circles the subject | Product/object showcase; one clear subject |
-| **Handheld** | Irregular micro-motion | Documentary/immediate worlds only; never an automatic "shake" layer |
-| **Whip pan** | Fast pan used as a cut | Only if the whip *is* the cut and is motivated; otherwise just cut |
-| **Rack focus** | Focus plane shifts between depths | Only with real depth separation |
+| **Handheld** | Irregular micro-motion | Documentary/immediate worlds; an automatic "shake" layer on everything is a warning sign |
+| **Whip pan** | Fast pan used as a cut | When the whip *is* the cut and is motivated (or the reference does it); otherwise a plain cut may be stronger |
+| **Rack focus** | Focus plane shifts between depths | With real depth separation between subjects that matter |
 
-**One intentional camera move** is usually stronger than several simultaneous moves. Do not combine push + pan + rotate unless the combined arc is the idea.
+**One intentional camera move** is usually stronger than several simultaneous moves; combined push + pan + rotate works when the combined arc is the idea (and reads clearly), and chaotic multi-axis camera work can be right for chaotic concepts.
 
 ## 5. Camera acceleration and deceleration
 
@@ -68,7 +68,7 @@ Real cameras (operators, dollies, cranes, robots) carry inertia:
 - Long moves (48–144+ frames at 24 fps) read as committed; short, sudden camera moves read as a cut or a whip.
 - A robotic/motion-control look is **constant speed with brief ramps**; a human-operated look has uneven, slightly late ramps.
 - Start or stop a move on a hold: a camera that starts the moment a shot begins, and stops the moment it ends, has no composed frame to land on.
-- Do not use the same easing for every camera move, and do not use the same easing as the object animation in the shot.
+- Using the same easing for every camera move, or the same easing as the object animation in the shot, flattens the result; vary by intention.
 
 Designing the move: choose start frame (composed), end frame (composed), travel type (constant, ramped), and total frames; then check the middle frames as compositions (see below).
 
@@ -77,16 +77,16 @@ Designing the move: choose start frame (composed), end frame (composed), travel 
 Parallax is a **consequence** of depth, not a per-layer multiplier.
 
 - Place layers/objects at real distances in the scene; move the camera; let perspective produce the parallax.
-- Foreground / midground / background separation must be designed: what is in front, what is the subject, what is behind, and why. A layer that has no depth reason does not get parallax.
-- Avoid assigning arbitrary speeds (0.2×/0.6×/1.2×) to every layer by habit.
-- A flat 2D graphic shot has **no** parallax; adding it would turn it into a faux-3D shot.
+- Foreground / midground / background separation should be designed: what is in front, what is the subject, what is behind, and why. A layer with no depth reason has no reason for parallax.
+- Assigning arbitrary speeds (0.2×/0.6×/1.2×) to every layer by habit is a warning sign; derive speeds from depth (or from the reference).
+- A flat 2D graphic shot has no parallax; adding it turns it into a faux-3D shot — fine if that's the idea, awkward if it's accidental.
 
 ## 7. Depth of field and focus
 
-- Depth blur is allowed **only** where depth is established (a foreground/background relationship exists) and the focal plane has a reason to be there.
+- Depth blur reads best where depth is established (a foreground/background relationship exists) and the focal plane has a reason to be there.
 - Focus choice is composition: it tells the viewer what matters.
-- Do not blur the background "to look premium" and do not ramp blur to fake camera movement.
-- Rack focus must move between two subjects the viewer cares about.
+- Blurring the background "to look premium," or ramping blur to fake camera movement, is a warning sign.
+- A rack focus is strongest between two subjects the viewer cares about.
 
 ## 8. Composition: frames are designed, not accidental
 
@@ -123,16 +123,16 @@ If intermediate frames are weaker than the keyframes: change the path (so elemen
 - Keep critical content inside title-safe margins; verify platform UI zones (they change — treat the numbers in `shot-composition` as a starting point and verify per platform).
 - Vertical formats usually need larger type and a higher focal point to clear bottom UI.
 - Decide per aspect: new composition, not a rescaled copy. Re-run the hero-frame check for each.
-- The official `remotion-create/video-layout.md` covers video-first layout and sizing guidance for the implementation.
+- If Remotion is the chosen tool, the official `remotion-create/video-layout.md` covers video-first layout and sizing guidance.
 
-## 11. Camera and composition checklist
+## 11. Quick camera and composition review
 
-- [ ] World declared per shot (2D graphic vs perspective).
-- [ ] No unannounced flat-frame scale "dolly".
-- [ ] Lens/FOV chosen if perspective; move named.
-- [ ] One intentional camera move per shot, with composed start and end frames.
-- [ ] Acceleration/deceleration designed, not defaulted.
-- [ ] Parallax arises from real depth; no per-layer multipliers by habit.
-- [ ] Depth blur only with established depth and a focus reason.
-- [ ] Opening, hero, transition and end frames designed; in-betweens scrubbed.
-- [ ] Each aspect ratio composed on its own terms.
+- Is it clear per shot whether the world is a flat graphic one or a perspective one?
+- If a flat frame is scaled, is it an intended graphic move rather than a pretend dolly?
+- If perspective: is a lens/FOV chosen and the move named?
+- Does the camera idea read clearly, with composed start and end frames?
+- Are acceleration and deceleration designed, not defaulted?
+- Does parallax come from real depth (or the reference), not per-layer multipliers by habit?
+- Does depth blur have established depth and a focus reason?
+- Are the opening, hero, transition and end frames designed, and the in-betweens scrubbed?
+- Is each aspect ratio composed on its own terms?

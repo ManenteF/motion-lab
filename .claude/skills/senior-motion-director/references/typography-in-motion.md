@@ -1,6 +1,6 @@
 # Typography in Motion
 
-Type is a **designed object** first and an animated object second. If a frame would be a poor layout as a still, no motion will rescue it. Everything below is a judgment checklist, not a formula; sizes and ratios are starting points to be tuned by eye.
+Craft reference for motion that involves type. Type is a **designed object** first and an animated object second: if a frame would be a poor layout as a still, motion rarely rescues it. Everything below is guidance to consult when relevant, not a formula; sizes and ratios are starting points to be tuned by eye. A reference's typographic behavior (snappy cuts, kinetic per-letter work, mechanical typing, chaotic scatter) takes precedence when matching it.
 
 ## 1. Design the still first
 
@@ -21,7 +21,7 @@ Before animating any text, produce the resolved layout at the hero and end frame
 ## 3. Tracking
 
 - Large display type often benefits from slightly **tighter** tracking; small text and all-caps often need **looser** tracking. Judge by color (the even texture of the line), not by numbers.
-- Do not animate tracking by default. If you do (a line "opening up"), it must be the idea; it changes the line width and so the optical center and line breaks mid-move.
+- Animating tracking (a line "opening up") is a strong gesture: it changes the line width, the optical center and possibly the line breaks mid-move, so check those frames. Use it when it is the idea.
 - Keep tracking consistent within a level of hierarchy across shots.
 
 ## 4. Leading
@@ -51,45 +51,42 @@ Before animating any text, produce the resolved layout at the hero and end frame
 | **Whole block / title** | Most of the time: the message moves as one object | Can feel heavy if travel is long |
 | **Line** | Multi-line statements where reading order is the point | Equal stagger per line reads like a template; only offset where reading order demands |
 | **Word** | Emphasis, rhythm tied to speech/sound, words with distinct meaning | Kerning/spacing between split words; keep word spaces exact |
-| **Letter** | Rare: a designed identity move, a hand-set/typewriter/mechanical concept, a single word as the hero | Almost always reads as a plugin; destroys kerning; slows reading |
+| **Letter** | A designed identity move, a hand-set/typewriter/mechanical concept, kinetic type, a single word as the hero | Easily reads as a plugin when generic; breaks kerning between split pieces; can slow reading |
 
-Rules:
-- **Do not animate individual letters by default.**
-- **Do not stagger every line or word by default.** Offset only where there is a reason (speech timing, reading emphasis, physical linkage).
-- Prefer revealing by **mask/clip along the text's own axis** (a line revealed by a moving edge, a baseline reveal inside a clipped container) over fading/scaling the glyphs, because it keeps the kerned line intact and reads as a designed gesture. Whether that is right for the concept is still a judgment.
-- Match direction to reading direction, or break it intentionally.
+Guidance:
+- Per-letter motion and staggered lines/words are legitimate when the concept or reference calls for them (speech timing, reading emphasis, physical linkage, kinetic type). As a *default applied to everything*, they are a warning sign.
+- Revealing by **mask/clip along the text's own axis** (a line revealed by a moving edge, a baseline reveal inside a clipped container) keeps a kerned line intact and can read as a designed gesture; fading/scaling glyphs is another option. Choose by the concept.
+- Match direction to reading direction, or break it on purpose.
 
 ## 8. Readability during motion
 
 - Text is only readable when it is **still or moving slowly along its reading axis**. Give every title a hold long enough to be read after it stops (see the reading-hold ranges in `timing-and-easing.md`).
-- Don't rotate, skew or blur body text while the viewer is meant to read it.
-- Avoid fast travel across the full frame for text that must be read; a fast move is fine for text read *after* it lands.
+- Rotating, skewing or blurring body text while the viewer is meant to read it usually costs legibility.
+- Fast travel across the full frame is hard to read; it is fine for text that is read *after* it lands (or when illegibility-in-motion is the effect).
 - Keep contrast and legibility at every important frame, including transitions where text overlaps imagery.
 - Motion blur on type is a deliberate style choice; keep it off secondary/legal text.
-- Numbers/quantities: ease to the final value, hold, no overshoot or bounce.
-- Don't loop-animate text the viewer is still reading.
+- Numbers/quantities read best when they settle on the final value and hold; overshoot or bounce undermines credibility.
+- Looping animation on text the viewer is still reading competes with reading.
 
 ## 9. Typography at transitions
 
 - Text being replaced should leave *and* arrive as designed layouts at the transition frame — check the midpoint frame for overlap collisions.
 - Match cuts with type: align baseline/anchor lines across the cut so the cut reads as one continuous system.
-- Avoid animating type size mid-read unless scale is the idea (a word growing to fill the frame is a layout gesture, and the filled-frame state must be a designed composition).
+- Animating type size mid-read is risky unless scale is the idea (a word growing to fill the frame is a layout gesture, and the filled-frame state should be a designed composition).
 
 ## 10. Practical implementation notes
 
-- Load fonts using the official guidance (`google-fonts.md` or `local-fonts.md`) so they are ready before render; a fallback flash is a typography failure, not a loading detail.
-- Use official `measuring-text.md` to fit text to containers and check overflow before choosing sizes.
-- For RTL/joined scripts, follow `arabic-text.md`: set direction and animate by word; never split joined letters.
-- Keep the animation values inline and in the official Remotion shape (see `remotion-markup`); this skill decides what the type does, not how the props are written.
+Whatever the tool, make sure the real font is loaded before frames are captured (a fallback flash is a typography failure, not a loading detail), measure ink and baselines on rendered frames rather than trusting box metrics, and check RTL/joined scripts (splitting joined letters breaks the script).
 
-## 11. Typography checklist
+If Remotion is the chosen tool, the official skills are the technical authority: `google-fonts.md` / `local-fonts.md` for loading, `measuring-text.md` for fitting and overflow, `arabic-text.md` for RTL, and `remotion-markup` for how animation values are written.
 
-- [ ] Hero and end frames laid out as stills: hierarchy, rag, alignment, scale.
-- [ ] Kerning checked at final size on display text; split spans have not damaged it.
-- [ ] Tracking and leading consistent per hierarchy level.
-- [ ] Line breaks by meaning, re-checked for each aspect and language.
-- [ ] Optical alignment and baseline verified; resting type pixel-snapped.
-- [ ] Unit of motion chosen deliberately (block > line > word > letter, in that order of default).
-- [ ] No default per-letter animation and no default stagger.
-- [ ] Reading holds tested; text not moving fast while being read.
-- [ ] Intermediate frames of any transition checked for collisions and illegibility.
+## 11. Quick typography review
+
+- Are the hero and end frames good layouts as stills (hierarchy, rag, alignment, scale)?
+- Is kerning right at final size on display text, and undamaged by any split spans?
+- Are tracking and leading consistent per hierarchy level?
+- Are line breaks by meaning, and re-checked per aspect and language?
+- Are optical alignment and baselines verified, with resting type pixel-snapped?
+- Was the unit of motion (block, line, word, letter) chosen for the concept or the reference rather than by default?
+- Are reading holds long enough for the real text, and is text not moving fast while being read?
+- Were the intermediate frames of any transition checked for collisions and illegibility?

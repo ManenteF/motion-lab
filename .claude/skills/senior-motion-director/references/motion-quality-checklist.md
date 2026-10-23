@@ -1,113 +1,111 @@
-# Motion Quality Checklist
+# Motion Quality: Review Lens
 
-Use this at three gates: before building (concept and frames), before rendering (review pass), and when critiquing existing work. The goal is to find generic or unnecessary technique **before** it reaches a render.
+Use this to review a motion — a first version, a refinement, or an existing piece. It is a **lens for judging**, not a set of pre-creation rules. High-quality motion can be restrained, aggressive, chaotic, precise, minimal, maximal, cinematic, graphic, typographic, procedural, 3D, flat, fast or slow. The standard is whether it **serves this specific motion** — its reference, brand, concept, content, assets, audience and duration.
 
-## Gate A — Before building
+## 1. Inspect the actual result
 
-### Concept
-- [ ] Communication objective written in one sentence.
-- [ ] Visual idea named (a mechanism or an image, not an adjective).
-- [ ] Brand relationship stated: which shapes, type, materials, rhythm or voice of the identity does the motion express?
-- [ ] Reason for every transition/reveal written down.
-- [ ] "What stays still" lists at least one element/phase and says why.
-- [ ] fps chosen (24 / 25 / 30) from the delivery target.
+The result is the authority, not the code or the timing numbers.
 
-### Hero frames
-- [ ] Opening, hero, transition (if any), and end frames defined as compositions.
-- [ ] Each frame works as a still (hierarchy, balance, type, margins).
-- [ ] Per-aspect compositions considered, not rescaled copies.
+**What to look at**
+- The **opening frame** and **final frame** as compositions (is the first frame composed? does the end frame hold up and match the source assets?).
+- **Key states** (the frames you would freeze as stills) and the **intermediate frames** between them.
+- **Transitions** and **cut points** — the frames just before/after, and the middle of any move.
+- **Hero moments** and places where speed or direction changes.
+- **Playback feel**: rhythm, judder, flow, and density over time.
+- The **reference at the same moments**, when there is one.
 
-### Hierarchy
-- [ ] For every shot: one hero movement, support movement, texture/ambient (texture may be none).
-- [ ] No two movements compete for primary.
+**How to inspect (what you can do)**
+- Render stills of specific frames and view them; build contact sheets (every N frames overall, every frame around transitions).
+- Spot-check frames from the **encoded video**, not just from the source composition (compression and encode issues show up there).
+- Measure motion: track an element's position/scale per frame to see speed profiles, holds and ramps; compute frame-difference energy to see cuts and rhythm.
+- Compare against the reference with matched frames or speed profiles.
 
-### Timing sheet
-- [ ] Moves written in frames with phases and holds.
-- [ ] Easing chosen by intention; no unjustified spring/bounce/overshoot/easeOutExpo/Material curve.
-- [ ] Justification ledger complete for every banned default being used.
+**Be honest about limits.** You can inspect frames and measured curves; you cannot watch playback at speed. Judder, rhythm and "feel" inferred from frames and measurements are provisional. State which judgments are based on what, and invite the user's playback judgment on feel-based questions. Never declare a motion visually successful on the basis of timing values or implementation logic alone.
 
-## Gate B — The review pass (before rendering)
+## 2. The review pass
 
-Answer each question honestly. "I don't know" counts as a failure.
+Answer honestly. These are questions about *this* motion, not a compliance gate.
 
-| # | Question | How to test it |
+1. **What is the primary movement** (or primary moment)? Is it unambiguous? (Chaotic or maximal pieces may have many; the viewer should still know where to look.)
+2. **Is any movement unnecessary** — would the piece lose anything if it stayed still?
+3. **Could it be simpler and stronger?** (Or, for an under-animated piece: is it missing the movement that would carry the idea?)
+4. **Does anything look like generic web/UI animation** that doesn't belong in this piece?
+5. **Are springs, overshoot, easing choices, or staggers there by habit** rather than by intent?
+6. **Are the intermediate frames well composed**, not just the keyframes?
+7. **Is the typography designed at every important frame** (hierarchy, kerning, breaks, balance, legibility during motion)?
+8. **Does the motion reinforce the concept** and the brand?
+9. **Does each transition come from the piece's own visual language** (geometry, brand elements, reference behavior)?
+10. **Does the camera (if any) feel physically or graphically intentional**?
+11. **Does any effect reveal the technique** (plugin-look cascades, regular parallax ratios, visibly cyclic loops) rather than the idea?
+12. **Would it still hold up with the decorative layer removed** (glow, blur, particles, gradients) — and if it relies on them, does the concept call for them?
+13. **If there is a reference:** where does it match the reference's behavior, and where does it deviate?
+14. **Do the assets keep their identity** (logo geometry, colors, type, photographic quality)? Does the end frame match the source?
+
+If a question reveals something generic or unnecessary, fix it before presenting — or flag it and say why it's staying.
+
+## 3. Review criteria (for strict critique)
+
+When reviewing an existing motion (Mode 3), evaluate and be specific:
+
+- **Timing** — phases, holds, density, rhythm across the piece; asymmetry and variety.
+- **Easing / acceleration** — appropriate to the object and intention; constant-speed, stepped or hard-stop phases where they fit.
+- **Visual hierarchy** — what leads, what supports; competing movement.
+- **Motion density** — too busy, too sparse, or well paced.
+- **Composition** — frame balance, alignment, negative space, margins.
+- **Typography** — as above.
+- **Intermediate frames** — in-betweens that are weaker than the keyframes.
+- **Effects** — purposeful or decorative.
+- **Transitions** — motivated by the piece.
+- **Camera** — believable or synthetic; one clear idea or several competing.
+- **Relation to the reference** — behavior match, not just mood.
+- **Execution quality** — edge cleanliness, pixel alignment, flicker, aliasing, compression artifacts, sync.
+
+Name what exactly looks **generic, amateur, stiff, floaty, over-animated, under-animated, too web-like, too mechanical, visually weak, or inconsistent with the reference**, with the frames/ranges where it happens, then propose **targeted** changes (see `iterative-feedback.md`). Don't rebuild what is working.
+
+## 4. Warning signs (not bans)
+
+Each can be right. Use them as prompts to look harder, and ask: *does this serve this specific motion?*
+
+| Warning sign | Why it often indicates a problem | When it is right |
 |---|---|---|
-| 1 | What is the hero movement? | Say it in one sentence per shot. If you need "and", there are two heroes. |
-| 2 | Is any movement unnecessary? | **Remove-one test**: disable each animated layer in turn. If the message survives, delete it. |
-| 3 | Could this be simpler and stronger? | Try a version with half the movements, longer holds and one hard cut. Compare. |
-| 4 | Does anything look like web animation? | Check the **web-animation tells** below. Watch it muted on a large screen. |
-| 5 | Is any spring, overshoot or stagger used by habit? | List every one. Each needs a ledger line with a concept reason. No line → remove. |
-| 6 | Are the intermediate frames well composed? | **Scrub test**: step through the transition frame by frame; export 3–5 in-betweens as stills and judge them as layouts. |
-| 7 | Does the typography remain designed at every important frame? | **Freeze test**: pause at the hero frame, the transition frame and the end frame; check kerning, breaks, balance, margins. |
-| 8 | Does the motion reinforce the concept? | State the concept; ask whether each movement is an instance of it. |
-| 9 | Does the transition originate from the visual language? | Name the shape, edge, color or brand element the transition is built from. If none, it is decoration. |
-| 10 | Does the camera feel physically or graphically intentional? | Is it a declared 2D graphic move or a believable camera with depth? Any flat-frame scale "dolly" must be declared. |
-| 11 | Does any effect reveal the underlying implementation technique? | Look for the **technique-reveal list** below. |
-| 12 | Would this still look sophisticated without glow, blur, particles or gradients? | **Strip test**: turn them all off. If the piece collapses, the idea was in the effects, not the design. |
+| Automatic opacity + scale entrances | The default arrival for everything | The element genuinely materializes/grows in this world |
+| Spring used everywhere | Interface physics applied regardless of object | Elastic or hung objects; a brand voice that is playful; a single deliberate beat |
+| Blanket stagger | Equal offsets read as a plugin | Sequence has meaning (reading order, physical chain, musical pattern) |
+| Unnecessary overshoot | Habitual "polish" | One arrival where a recoil sells weight or personality |
+| Generic easing | One curve everywhere, picked from a menu | The curve was chosen for this object/intention |
+| Random particles | Decoration without narrative role | They carry meaning or are the concept |
+| Decorative glow | Fake finish | A light source or luminous subject in the concept |
+| Meaningless blur | Hides a weak move or fakes depth | It communicates velocity or genuine depth/shutter feel |
+| Fake depth | Flat scaling dressed as a camera | A deliberate flat/graphic move, or real depth is present |
+| Arbitrary parallax | Per-layer multipliers by habit | Layers have real depth relationships |
+| Generic SaaS motion | Product-UI language on a non-UI piece | The piece is a product/UI piece |
+| Transitions unrelated to the piece | Wipes/whips/slides from a menu | The transition derives from the content, brand or reference |
+| Animation because an element exists | Motion with no purpose | The element's movement carries meaning |
+| Mechanical rhythm | Regular intervals, no holds | A deliberately metronomic concept |
+| Every layer moving at once | No hierarchy | A chaotic/maximal concept that still reads |
+| Weak intermediate frames | Keyframes designed, in-betweens accidental | The in-betweens are brief enough not to register |
+| Un-designed type in motion | Kerning/breaks/hierarchy broken mid-move | — |
 
-If any answer reveals a generic or unnecessary technique, revise before rendering.
+If you knowingly keep one, a one-line note on why is enough.
 
-### Extra tests
+## 5. Useful tests
 
-- **Mute test:** watch without sound. Is the hierarchy clear? Then with sound: does sound reinforce the hero rather than every beat?
-- **Squint / thumbnail test:** at tiny size, is the hero frame still the clearest frame?
-- **Reverse test:** play the beat backwards mentally — does the order of events have a reason?
-- **End-frame test:** is the end frame a designed layout that holds without motion?
-- **Hold test:** count the holds in the piece. None means no rhythm.
-- **One-wow test:** identify the single biggest moment. If you can name two, one is cancelling the other.
+- **Remove-one:** disable each animated layer in turn; keep what changes the message.
+- **Strip:** turn off decorative effects (glow, blur, particles, gradients); does the piece still hold? If not, is the effect the concept?
+- **Scrub:** step through transitions frame by frame; export 3–5 in-betweens and judge them as layouts.
+- **Freeze:** pause on the opening, hero, transition and end frames; check composition and type.
+- **Mute:** watch without sound; then with: does sound reinforce the primary movement or fight it?
+- **Thumbnail/squint:** is the key frame still clear when small?
+- **Reference A/B:** same moments, side by side.
+- **Hold count:** count holds; none usually means no rhythm (unless that is the concept).
+- **Final-frame test:** is the end frame a designed layout, and does it match the source assets?
 
-## Web-animation tells
+## 6. Review output format (keep it short)
 
-If several of these appear, the piece reads as interface motion rather than motion design:
+When reporting a review to the user:
 
-- Every element enters with the same fade + small scale or rise.
-- One easing curve used on everything; one duration repeated.
-- Equal-interval staggers on lists, words or letters.
-- Soft bounce/overshoot on arrivals, especially titles and icons.
-- Content "slides in from the right/below" as in a navigation UI.
-- Hover/press/toggle gestures used as storytelling devices.
-- Everything is always moving (ambient drift, floating, pulsing loops).
-- Gradient blobs, glow, particles, glass panels as a background "for depth".
-- Camera = whole-frame scale with a blur ramp.
-- Transitions are wipes/whips/slides chosen from a menu.
-
-## Technique-reveal list
-
-An effect "reveals the technique" when the viewer sees the tool instead of the idea:
-
-- A transition that is obviously a stock preset.
-- Per-letter/per-word cascades that look like a plugin.
-- Parallax at suspiciously regular ratios.
-- Blur ramps/vignettes added to hide a weak move.
-- Loops that are visibly cyclic.
-- Particles with no narrative role.
-- A glow added to make flat elements feel "finished".
-- Text that clearly reflows or snaps between layout states mid-animation.
-
-## Gate C — Critiquing an existing piece
-
-1. Watch it once without stopping; write what you *felt* and what you *understood*.
-2. Identify the hero in every shot. Mark shots that have none or two.
-3. Run the remove-one, strip and scrub tests.
-4. List all banned defaults present and ask for the ledger line.
-5. Recommend changes in order: remove → simplify → re-time (holds, hard stops) → change mechanism → only then add anything.
-
-## Justification ledger (template)
-
-Keep in the brief; update as decisions are made.
-
-```
-JUSTIFICATION LEDGER
-- JUSTIFIED: <technique> on <element/shot> — <concept reason tied to brand/idea> — <limits: amount, count, frames>
-- JUSTIFIED: ...
-(Banned defaults NOT on this list are not allowed in the build.)
-```
-
-Banned-default reminder: opacity 0→1 + scale 0.95→1 entrances · spring on titles · bounce on settle · overshoot on every arrival · stagger every element · mesh gradients · particle constellations · teal-and-orange grading · slow gradient drift as "premium" · generic parallax on every layer · fake dolly by scaling a flat frame · automatic blur ramps · UI navigation metaphors for scene transitions · micro-bounce on musical impacts.
-
-## Gate D — Release
-
-- [ ] Review pass completed; revisions made.
-- [ ] Studio preview checked at full frame rate (not just stills).
-- [ ] Ledger matches what is actually in the build.
-- [ ] Render only on explicit user request (official Remotion workflow).
+- **Verdict** in a sentence.
+- **What works** (keep).
+- **What doesn't** — specific, with frame ranges.
+- **Proposed targeted changes** (or the changes you made).
+- **What was verified and how**, and what needs the user's playback judgment.
